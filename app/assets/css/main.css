@@ -1,0 +1,314 @@
+:root {
+  /* ── Brand colors ───────────────────────────── */
+  --color-primary: #90FF02;
+  --color-white: #FFFFFF;
+  --color-black: #1E1E1E;
+
+  /* ── Extended palette ───────────────────────── */
+  --color-bg: var(--color-black);          /* base canvas            */
+  --color-ink-900: #141414;                /* deeper alternating bg  */
+  --color-surface: #242424;                /* cards                  */
+  --color-surface-2: #2C2C2C;              /* raised / hover         */
+  --color-fg: var(--color-white);
+  --color-accent: var(--color-primary);
+  --color-muted: #8C8C8C;                  /* secondary text         */
+  --color-faint: #5A5A5A;                  /* tertiary text          */
+  --color-line: rgba(255, 255, 255, 0.10); /* hairline dividers      */
+  --color-line-strong: rgba(255, 255, 255, 0.18);
+  --color-lime-dim: #5b9e02;               /* pressed / used lime    */
+  --glow-lime: 0 0 0 1px rgba(144, 255, 2, 0.6), 0 0 24px rgba(144, 255, 2, 0.25);
+
+  /* ── Fonts ──────────────────────────────────── */
+  --font-logo: 'Orbitron', sans-serif;
+  --font-heading: 'Anton', sans-serif;
+  --font-body: 'General Sans', sans-serif;
+
+  /* ── Fluid type scale (Anton runs tall/condensed) */
+  --fs-eyebrow: 0.75rem;
+  --fs-small: 0.875rem;
+  --fs-body: 1rem;
+  --fs-lead: clamp(1.125rem, 0.9rem + 1vw, 1.375rem);
+  --fs-h3: clamp(1.5rem, 1.1rem + 2vw, 2.25rem);
+  --fs-h2: clamp(2.25rem, 1.4rem + 4vw, 4rem);
+  --fs-h1: clamp(2rem, 0.75rem + 8vw, 9rem);
+  --fs-mega: clamp(4rem, 1rem + 16vw, 14rem);
+
+  /* ── Spacing & layout ───────────────────────── */
+  --space-section: clamp(4.5rem, 3rem + 7vw, 9rem);
+  --container: 1280px;
+  --gutter: clamp(1.25rem, 0.5rem + 3vw, 3rem);
+  --radius: 4px;          /* tight, athletic — not pillowy */
+  --radius-lg: 8px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* ── Headings ─────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+
+p { max-width: 65ch; }
+
+.logo,
+.wordmark {
+  font-family: var(--font-logo);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img { max-width: 100%; display: block; }
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Layout helpers ───────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--space-section);
+}
+
+.section--ink { background: var(--color-ink-900); }
+
+/* Shared section primitives (used across pages) */
+.block-head {
+  max-width: 760px;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.block-head h2 { line-height: 0.98; } /* a touch looser so swipe bars don't clip the line above */
+.block-head p { color: var(--color-muted); font-size: var(--fs-lead); }
+.block-foot { margin-top: 2.5rem; }
+
+.cta-band { padding-block: clamp(3rem, 2rem + 4vw, 5rem); }
+.cta-band__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+/* ── Eyebrow / technical label (Orbitron) ─────── */
+.eyebrow {
+  font-family: var(--font-logo);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  display: block;        /* block so the label text wraps at spaces, never one long line */
+  max-width: 100%;
+}
+
+@media (max-width: 520px) {
+  .eyebrow { letter-spacing: 0.16em; font-size: 0.68rem; }
+}
+
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  vertical-align: middle;
+  margin-right: 0.6em;
+  background: var(--color-accent);
+}
+
+.eyebrow--plain::before { display: none; }
+
+/* ── Lime highlight-swipe on a key word ───────── */
+.swipe {
+  position: relative;
+  isolation: isolate; /* contain the ::before bar so z-index:-1 never falls behind the page */
+  color: var(--color-black);
+  padding-inline: 0.12em;
+  white-space: nowrap;
+}
+.swipe::before {
+  content: "";
+  position: absolute;
+  inset: 0.06em -0.04em 0.08em;
+  background: var(--color-accent);
+  transform: skewX(-7deg);
+  z-index: -1;
+}
+
+/* outline-only word (lime stroke, transparent fill) */
+.stroke {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-accent);
+  text-stroke: 2px var(--color-accent);
+}
+
+/* ── Buttons ──────────────────────────────────── */
+.btn {
+  --btn-bg: var(--color-accent);
+  --btn-fg: var(--color-black);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  font-family: var(--font-logo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 1.05em 1.8em;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1px solid var(--btn-bg);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease),
+    background 0.18s var(--ease), color 0.18s var(--ease);
+  line-height: 1;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(144, 255, 2, 0.22); }
+.btn:active { transform: translateY(0); }
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-white);
+  border-color: var(--color-line-strong);
+}
+.btn--ghost:hover {
+  --btn-fg: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: none;
+}
+
+.btn--block { width: 100%; }
+
+/* ── Card ─────────────────────────────────────── */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease),
+    background 0.2s var(--ease);
+}
+.card:hover {
+  border-color: var(--color-accent);
+  background: var(--color-surface-2);
+}
+
+/* ── Form fields ──────────────────────────────── */
+.field { display: block; margin-bottom: 1.1rem; }
+.field > label {
+  display: block;
+  font-family: var(--font-logo);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 0.5rem;
+}
+.input,
+.select,
+.textarea {
+  width: 100%;
+  background: var(--color-ink-900);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.85rem 1rem;
+  transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease);
+}
+.input::placeholder,
+.textarea::placeholder { color: var(--color-faint); }
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(144, 255, 2, 0.15);
+}
+.textarea { resize: vertical; min-height: 8rem; }
+
+/* ── Misc ─────────────────────────────────────── */
+.divider { height: 1px; background: var(--color-line); border: 0; }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-logo);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border: 1px solid var(--color-line-strong);
+  border-radius: 999px;
+  padding: 0.35em 0.85em;
+}
+
+/* ── Scroll-reveal (progressive enhancement) ──── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
