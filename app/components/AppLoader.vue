@@ -28,15 +28,23 @@ function finish() {
   progress.value = 100
   window.setTimeout(() => {
     leaving.value = true
+    // Reveal the site as the loader starts fading — the two transitions overlap.
+    document.documentElement.classList.remove('site-loading')
     window.setTimeout(() => { visible.value = false }, 700)
   }, 360)
 }
 
 onMounted(() => {
+  // Hide site content until the loader leaves (no-JS users never get this class).
+  document.documentElement.classList.add('site-loading')
+
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   if (reduce) {
     progress.value = 100
-    window.setTimeout(() => { visible.value = false }, 450)
+    window.setTimeout(() => {
+      document.documentElement.classList.remove('site-loading')
+      visible.value = false
+    }, 450)
     return
   }
 
@@ -67,6 +75,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   cancelAnimationFrame(raf)
   document.documentElement.style.overflow = ''
+  document.documentElement.classList.remove('site-loading')
 })
 
 watch(visible, (v) => {

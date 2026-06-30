@@ -66,6 +66,18 @@ body {
   overflow-x: hidden;
 }
 
+/* ── Site reveal: page stays hidden until AppLoader leaves ── */
+.site-shell {
+  opacity: 1;
+  transition: opacity 0.6s var(--ease, ease);
+}
+html.site-loading .site-shell {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-shell { transition: none; }
+}
+
 /* ── Headings ─────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
