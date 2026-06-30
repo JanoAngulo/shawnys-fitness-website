@@ -34,6 +34,7 @@ function subscribe() { if (email.value) { subscribed.value = true; email.value =
 </script>
 
 <template>
+  <div class="page-view">
   <section class="section hero-page">
     <div class="container">
       <span class="eyebrow">Blog & resources</span>
@@ -91,6 +92,7 @@ function subscribe() { if (email.value) { subscribed.value = true; email.value =
       </form>
     </div>
   </section>
+  </div>
 </template>
 
 <style scoped>

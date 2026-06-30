@@ -89,6 +89,7 @@ const notifications = [
 </script>
 
 <template>
+  <div class="page-view">
   <!-- ═══ OVERVIEW ═══ -->
   <section v-show="active === 'overview'" class="stack">
     <div class="welcome">
@@ -314,6 +315,7 @@ const notifications = [
       </div>
     </Transition>
   </Teleport>
+  </div>
 </template>
 
 <style scoped>

@@ -22,6 +22,7 @@ const details = [
 </script>
 
 <template>
+  <div class="page-view">
   <section class="section hero-page">
     <div class="container">
       <span class="eyebrow">Get started</span>
@@ -88,6 +89,7 @@ const details = [
       </aside>
     </div>
   </section>
+  </div>
 </template>
 
 <style scoped>

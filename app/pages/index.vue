@@ -72,6 +72,7 @@
 </script>
 
 <template>
+  <div class="page-view">
   <!-- ── HERO ─────────────────────────────────── -->
   <section class="hero">
     <span class="hero__ghost" aria-hidden="true">GRIND</span>
@@ -258,6 +259,7 @@
       </div>
     </div>
   </section>
+  </div>
 </template>
 
 <style scoped>

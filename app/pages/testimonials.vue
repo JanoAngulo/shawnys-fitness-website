@@ -22,6 +22,7 @@ const stories = [
 </script>
 
 <template>
+  <div class="page-view">
   <section class="section hero-page">
     <div class="container">
       <span class="eyebrow">Success stories</span>
@@ -85,6 +86,7 @@ const stories = [
       <NuxtLink to="/signup" class="btn">Start training</NuxtLink>
     </div>
   </section>
+  </div>
 </template>
 
 <style scoped>

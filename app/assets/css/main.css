@@ -303,6 +303,30 @@ img { max-width: 100%; display: block; }
 }
 .reveal.is-visible { opacity: 1; transform: none; }
 
+/* ── Page transitions (Nuxt pageTransition="page") ─ */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-12px);
+}
+
+/* ── Layout transitions (Nuxt layoutTransition="layout") ─ */
+.layout-enter-active,
+.layout-leave-active {
+  transition: opacity 0.3s var(--ease);
+}
+.layout-enter-from,
+.layout-leave-to {
+  opacity: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }

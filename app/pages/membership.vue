@@ -34,6 +34,7 @@ function toggle(i: number) { openFaq.value = openFaq.value === i ? null : i }
 </script>
 
 <template>
+  <div class="page-view">
   <section class="section hero-page">
     <div class="container">
       <span class="eyebrow">Pricing</span>
@@ -111,6 +112,7 @@ function toggle(i: number) { openFaq.value = openFaq.value === i ? null : i }
       <NuxtLink to="/signup" class="btn">Join Now</NuxtLink>
     </div>
   </section>
+  </div>
 </template>
 
 <style scoped>

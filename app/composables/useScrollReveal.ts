@@ -31,8 +31,12 @@ export function useScrollReveal() {
   onMounted(() => nextTick(scan))
   onBeforeUnmount(() => observer?.disconnect())
 
-  const route = useRoute()
-  watch(() => route.fullPath, () => nextTick(() => setTimeout(scan, 50)))
+  // Re-scan once the new page DOM exists. With pageTransition mode "out-in"
+  // the incoming page mounts only after the outgoing one leaves, so a fixed
+  // timeout races the transition — hook the transition-finish event instead.
+  const nuxtApp = useNuxtApp()
+  nuxtApp.hook('page:transition:finish', () => nextTick(scan))
+  nuxtApp.hook('page:finish', () => nextTick(scan))
 
   return { scan }
 }

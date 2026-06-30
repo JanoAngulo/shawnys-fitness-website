@@ -14,6 +14,7 @@
 </script>
 
 <template>
+  <div class="page-view">
   <section class="section hero-page">
     <div class="container">
       <span class="eyebrow">Since 2019 · Hagonoy, Bulacan</span>
@@ -72,6 +73,7 @@
       <NuxtLink to="/contact" class="btn">Book a free intro</NuxtLink>
     </div>
   </section>
+  </div>
 </template>
 
 <style scoped>
